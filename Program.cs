@@ -1,8 +1,37 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using tienda_comics;
+using tienda_comics.Data_Context;
+using tienda_comics.Services;
+using tienda_comics.Services.Implementation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+#region Acoplar base de datos
+builder.Services.AddDbContext<TiendaComics>(
+    opt =>
+    {
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConection"))
+        .EnableSensitiveDataLogging(true).UseLazyLoadingProxies();
+    });
+#endregion
+#region Configurar Mapper
+builder.Services.AddSingleton(provider =>
+{
+    return new MapperConfiguration(config =>
+    {
+        config.AddProfile<AutoMapperProfile>();
+        config.ConstructServicesUsing(type => 
+        ActivatorUtilities.GetServiceOrCreateInstance(provider, type));
+    }).CreateMapper();
+});
+#endregion
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ICatalogoService, CatalogoService>();
 
 var app = builder.Build();
 
