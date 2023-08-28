@@ -2,7 +2,7 @@
 {
     public class CatalogoViewModel
     {
-        public int id { get; set; }
+        public String idCatalogo { get; set; }
         public string descripcion { get; set; }
     }
 }

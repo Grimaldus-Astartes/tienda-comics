@@ -4,6 +4,7 @@ using tienda_comics;
 using tienda_comics.Data_Context;
 using tienda_comics.Services;
 using tienda_comics.Services.Implementation;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
