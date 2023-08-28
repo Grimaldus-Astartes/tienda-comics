@@ -9,10 +9,10 @@ namespace tienda_comics
         public AutoMapperProfile()
         {
             CreateMap<CatalogoEntity, CatalogoViewModel>()
-            .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.idCatalogo));
+            .ForMember(dest => dest.idCatalogo, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<CatalogoViewModel, CatalogoEntity>()
-            .ForMember(dest => dest.idCatalogo, opt => opt.MapFrom(src => src.id));
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.idCatalogo));
         }
     }
 }

@@ -7,22 +7,20 @@ using tienda_comics.Services.Implementation;
 namespace tienda_comics.Controllers
 {
     [ApiController]
-    [Route("api/catalogos")]
+    [Route("api/[controller]")]
     public class CatalogoController : ControllerBase
     {
         private readonly ICatalogoService _catalogoService;
-        private readonly ILogger<CatalogoController> _logger;
 
         public CatalogoController(ICatalogoService catalogoService)
         {
             this._catalogoService = catalogoService;
         }
-        [HttpGet("GetAll")]
+        [HttpGet]
         [ProducesResponseType(200)]
         public async Task<IActionResult> Get()
         {
-            /* IEnumerable<CatalogoViewModel> response = await _catalogoService.GetAllCatalogosAsync();
-             _logger.LogInformation("Respuesta que debe ser enviada", response);*/
+            IEnumerable<CatalogoViewModel> response = await _catalogoService.GetAllCatalogosAsync();
             return StatusCode(200, await _catalogoService.GetAllCatalogosAsync());
         }
     }
