@@ -23,6 +23,7 @@ namespace tienda_comics.Data_Context
 
         #region dbset
         public virtual DbSet<CatalogoEntity> Catalogos { get; set;}
+        public virtual DbSet<ProductoEntity> Productos { get; set;}
         #endregion
     }
 }
