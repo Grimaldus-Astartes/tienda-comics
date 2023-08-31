@@ -30,18 +30,36 @@ builder.Services.AddSingleton(provider =>
 });
 #endregion
 
+#region Especificar Corps
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NuevaPolitica", app =>
+    {
+        app.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+#endregion
+
 builder.Services.AddControllersWithViews();
 
+#region registerServices
 builder.Services.AddScoped<ICatalogoService, CatalogoService>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
+#endregion
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline. 
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseCors("NuevaPolitica");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

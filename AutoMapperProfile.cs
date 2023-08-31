@@ -13,6 +13,11 @@ namespace tienda_comics
 
             CreateMap<CatalogoViewModel, CatalogoEntity>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.idCatalogo));
+
+            CreateMap<ProductoEntity, ProductoViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.idProducto));
+            CreateMap<ProductoViewModel, ProductoEntity>()
+                .ForMember(dest => dest.idProducto, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

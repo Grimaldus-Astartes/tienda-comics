@@ -5,7 +5,7 @@ namespace tienda_comics.Data_Entities
 {
     [Table("catalogo")]
     public class CatalogoEntity
-    {
+    { 
         [Key]
         [Column("id_catalogo")]
         public String Id { get; set; } = String.Empty;
