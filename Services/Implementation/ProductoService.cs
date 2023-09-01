@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using tienda_comics.Data_Context;
+using tienda_comics.Data_Entities;
 using tienda_comics.Models;
 
 namespace tienda_comics.Services.Implementation
@@ -19,6 +20,15 @@ namespace tienda_comics.Services.Implementation
         {
             return _mapper
                 .Map<IEnumerable<ProductoViewModel>>(await _dbContextService.Productos.ToListAsync());
+        }
+
+        public async Task<ProductoViewModel> CreateProductoAsync(ProductoCreateModel requestModel)
+        {
+            var productoNew = await _dbContextService.Productos.AddAsync
+                (_mapper.Map<ProductoEntity>(requestModel));
+            await _dbContextService.SaveChangesAsync();
+
+            return _mapper.Map<ProductoViewModel>(productoNew.Entity);
         }
     }
 

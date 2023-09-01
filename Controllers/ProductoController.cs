@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using tienda_comics.Models;
 using tienda_comics.Services;
 
 namespace tienda_comics.Controllers
@@ -18,6 +19,16 @@ namespace tienda_comics.Controllers
         public async Task<IActionResult> GetAll()
         {
             return StatusCode(200, await _productoService.GetAllProductosAsync());
+        }
+        [HttpPost]
+        [ProducesResponseType(201)]
+        public async Task<IActionResult> CreateProducto(ProductoCreateModel requestModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return StatusCode(201, await _productoService.CreateProductoAsync(requestModel));
         }
     }
 }

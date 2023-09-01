@@ -9,7 +9,11 @@ import '/node_modules/primeflex/primeflex.css';
 import "primereact/resources/themes/lara-light-indigo/theme.css";     
     
 //core
-import "primereact/resources/primereact.min.css";                                       
+import "primereact/resources/primereact.min.css";    
+
+//Prime Icons
+import 'primeicons/primeicons.css';
+        
         
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');

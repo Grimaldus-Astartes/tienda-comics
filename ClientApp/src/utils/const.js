@@ -1,10 +1,9 @@
 const baseURL = "https://localhost:7019"
+/*|------- GET URIs  -------|*/
+export const getAllProducts = '/api/producto/getAll'
+/*|------- POST URIs  -------|*/
+export const postProduct = '/api/producto'
 
-const getAllProducts = '/api/producto/getAll'
 
-const getIUS = {
-    baseURL,
-    getAllProducts
-}
 
-export default getIUS;
+export default baseURL;
