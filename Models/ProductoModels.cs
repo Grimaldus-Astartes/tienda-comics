@@ -33,4 +33,11 @@ namespace tienda_comics.Models
         [Required(ErrorMessage = "El campo 'tipo' es requerido'")]
         public string tipo { get; set; } = string.Empty;
     }
+
+    public class ProductoDeleteModel
+    {
+        [Required(ErrorMessage = "El campo 'id' no puede ser <null>")]
+        [Range(1, int.MaxValue, ErrorMessage = "El campo 'id' no puede ser 0 o menor que 0")]
+        public int Id { get;}
+    }
 }

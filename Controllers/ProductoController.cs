@@ -30,5 +30,13 @@ namespace tienda_comics.Controllers
             }
             return StatusCode(201, await _productoService.CreateProductoAsync(requestModel));
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> DeleteProducto(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException("id");
+            return StatusCode(204, await _productoService.DeleteProducto(id));
+        }
     }
 }

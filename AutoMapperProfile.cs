@@ -21,6 +21,8 @@ namespace tienda_comics
 
             CreateMap<ProductoCreateModel, ProductoEntity>();
             CreateMap<ProductoEntity, ProductoCreateModel>();
+
+            CreateMap<ProductoDeleteModel, ProductoViewModel>();
         }
     }
 }

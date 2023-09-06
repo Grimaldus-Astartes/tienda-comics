@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.VisualBasic;
 using tienda_comics.Data_Context;
 using tienda_comics.Data_Entities;
 using tienda_comics.Models;
@@ -29,6 +32,19 @@ namespace tienda_comics.Services.Implementation
             await _dbContextService.SaveChangesAsync();
 
             return _mapper.Map<ProductoViewModel>(productoNew.Entity);
+        }
+
+        public async Task<ProductoViewModel> DeleteProducto(int idProducto)
+        {
+            var producto = await _dbContextService.Productos.FindAsync(idProducto);
+            if (producto == null)
+            {
+                throw new Exception("El producto que desea eliminar no exite");
+            }
+             _dbContextService.Productos.Remove(producto);
+            _dbContextService.SaveChanges();
+
+            return _mapper.Map<ProductoViewModel>(producto);
         }
     }
 
