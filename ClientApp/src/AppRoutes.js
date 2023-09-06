@@ -1,6 +1,7 @@
 import { Counter } from "./components/Counter";
 import Form from './components/Form'
 import Dashboard from './components/Dashboard'
+import Producto from "./components/Producto";
 
 const AppRoutes = [
   {
@@ -14,6 +15,10 @@ const AppRoutes = [
   {
     path: '/form',
     element: <Form title={"Agregar producto"} />
+  },
+  {
+    path: '/producto/:idProducto',
+    element: <Producto />
   }
 ];
 
