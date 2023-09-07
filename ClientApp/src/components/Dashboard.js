@@ -12,7 +12,10 @@ const ActionsTemplate = (rowData) => {
   return (
     <Fragment>
       <Link to={`producto/${rowData.id}`} state={{ producto: rowData }}>
-        <Button label="Ver" />
+        <i className="pi pi-search mx-1"></i>
+      </Link>
+      <Link to={`/editarProducto/${rowData.id}`} state={{producto: rowData}}>
+        <i className="pi pi-pencil mx-1"></i>
       </Link>
     </Fragment>
   );
@@ -23,7 +26,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getProducts().then((res) => setProductos(res.data));
-  }, [productos]);
+  }, []);
 
   return (
     <Card>

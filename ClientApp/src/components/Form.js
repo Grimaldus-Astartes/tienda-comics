@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
@@ -8,10 +8,17 @@ import { Button } from "primereact/button";
 import { Message } from "primereact/message";
 
 import postAProduct from "../web/postService";
+import { Link, useLocation } from "react-router-dom";
+import updateProducto from "../web/updateService";
 
-export default function Form({ title = "sample text" }) {
+export default function Form({ title = "sample text", formType = "crear" }) {
   const [formState, setForm] = useState(initForm);
-  const [submitted, setSubmitted] = useState();
+  const [submitted, setSubmitted] = useState(null);
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state != null) setForm(state.producto);
+  }, []);
 
   const handleChange = (e) => {
     const { name: propertieName } = e.target;
@@ -43,10 +50,22 @@ export default function Form({ title = "sample text" }) {
       }
     }
 
-    if (submit)
-      postAProduct(formState)
-        .then(() => setSubmitted("Se envio correctamente"))
-        .catch(() => setSubmitted("Hubo un error al enviar"));
+    if (submit) {
+      switch (formType) {
+        case "crear":
+          postAProduct(formState)
+            .then(() => setSubmitted("Se envio correctamente"))
+            .catch(() => setSubmitted("Hubo un error al enviar"));
+          break;
+        case "editar":
+          console.trace('Actualizar', {formState})
+          updateProducto(formState.id ,formState)
+            .then(() => setSubmitted("Se actualizo correctamente"))
+            .catch(() => setSubmitted("Hubo un error al actualizar"));
+          break;
+        default:
+      }
+    }
   };
 
   return (
@@ -125,17 +144,38 @@ export default function Form({ title = "sample text" }) {
             value={formState.tipo}
           />
         </div>
-        <div className="flex flex-column w-full">
+        <div className="flex flex-row w-full">
           <div className="w-3">
-            <Button
-              label="Enviar"
-              icon="pi pi-save"
-              className="align-items-end"
-              onClick={handleSubmit}
-            />
+            <Link to="/">
+              <Button label="Cancel" severity="danger" />
+            </Link>
           </div>
+          {formType.toLowerCase() == "crear" ? (
+            <div className="w-3">
+              <Button
+                label="Enviar"
+                severity="success"
+                icon="pi pi-save"
+                className="align-items-end"
+                onClick={handleSubmit}
+              />
+            </div>
+          ) : (
+            <div className="w-3">
+              <Button
+                label="Editar"
+                icon="pi pi-pencil"
+                className="align-items-end"
+                onClick={handleSubmit}
+              />
+            </div>
+          )}
         </div>
-        <Message severity="info" text={submitted} />
+        {submitted !== null ? (
+          <div className="flex flex-column w-full">
+            <Message severity="info" text={submitted} />
+          </div>
+        ) : null}
       </form>
     </Card>
   );

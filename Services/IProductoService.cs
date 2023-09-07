@@ -9,5 +9,6 @@ namespace tienda_comics.Services
         Task<ProductoViewModel> CreateProductoAsync(ProductoCreateModel requestModel);
         Task<ProductoViewModel> DeleteProducto(int idProducto);
         Task<IEnumerable<ProductoViewModel>> GetAllProductosAsync();
+        Task<ProductoEntity> UpdateProducto(int id, ProductoUpdateModel productoModificado);
     }
 }

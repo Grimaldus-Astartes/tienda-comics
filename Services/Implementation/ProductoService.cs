@@ -46,6 +46,21 @@ namespace tienda_comics.Services.Implementation
 
             return _mapper.Map<ProductoViewModel>(producto);
         }
+
+        public async Task<ProductoEntity> UpdateProducto
+            (int id, ProductoUpdateModel productoModificado)
+        {
+            var existingProducto = await _dbContextService.Productos.FindAsync (id);
+            if (existingProducto == null)
+            {
+                throw new Exception("No se encontro el producto");
+            }
+            _mapper.Map(productoModificado, existingProducto);
+            var resultado = _dbContextService.Productos.Update(existingProducto);
+            await _dbContextService.SaveChangesAsync();
+
+            return resultado.Entity;
+        }
     }
 
 }

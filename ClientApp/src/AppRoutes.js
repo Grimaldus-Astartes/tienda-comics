@@ -14,11 +14,15 @@ const AppRoutes = [
   },
   {
     path: '/form',
-    element: <Form title={"Agregar producto"} />
+    element: <Form title={"Agregar producto"} formType="crear" />
   },
   {
     path: '/producto/:idProducto',
     element: <Producto />
+  },
+  {
+    path: '/editarProducto/:idProducto',
+    element: <Form title="Editar Producto" formType="editar" />
   }
 ];
 
