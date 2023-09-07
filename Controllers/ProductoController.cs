@@ -38,5 +38,17 @@ namespace tienda_comics.Controllers
             if (id < 0) throw new ArgumentOutOfRangeException("id");
             return StatusCode(204, await _productoService.DeleteProducto(id));
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> UpdateProducto(int id, [FromBody] ProductoUpdateModel requestModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return StatusCode(204, await _productoService.UpdateProducto(id, requestModel));
+            
+        }
     }
 }
